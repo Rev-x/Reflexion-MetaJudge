@@ -1,4 +1,0 @@
-numpy
-ollama
-transformers
-torch
