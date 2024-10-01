@@ -81,7 +81,7 @@ To use both frameworks in a pipeline:
 2. Run the meta-reflection script:
 
    ```
-   python metareflection.py
+   python meta_reflexion.py
    ```
 3. When prompted, enter 'o' for Ollama or 'h' for Hugging Face to decide which model to use.
 
