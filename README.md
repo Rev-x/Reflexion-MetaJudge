@@ -1,99 +1,104 @@
-# MetaReflexion with Ollama
+# Reflexion-MetaJudge
 
-MetaReflexion is an AI-driven architecture built to generate responses, evaluate them, and refine the output iteratively through self-reflection and judgment. This module integrates with the Ollama API to perform multiple rounds of generation, evaluation (judging), and improvement (refining) of text outputs based on given prompts.
+This project is an implementation and improvement of the frameworks proposed in the papers:
 
-## Features
+- [LLM as a Meta-Judge](https://arxiv.org/abs/2407.19594)
+- [Reflexion](https://arxiv.org/abs/2303.11366)
 
-- **Actor**: Generates responses using Ollama models.
-- **Judge**: Evaluates the responses based on a customizable judging prompt.
-- **MetaJudge**: Compares and ranks judgments using meta-evaluation.
-- **Self-Refinement**: Refines the response iteratively based on the best judgment, to achieve optimal output quality.
+## Setup
 
-## Installation
+1. Clone the repository:
 
-### Requirements
+   ```
+   git clone https://github.com/Rev-x/Reflexion-MetaJudge.git
+   ```
+2. Navigate to the project directory:
 
-You need to have Python installed on your system along with the dependencies listed in `requirements.txt`. To install the required dependencies:
+   ```
+   cd Reflexion-MetaJudge
+   ```
+3. Install the required dependencies:
 
-```bash
-pip install -r requirements.txt
-```
+   ```
+   pip install -r requirements.txt
+   ```
 
-### Dependencies
+## Configuration
 
-- `ollama` - Ollama API client to generate responses.
-- `numpy` - For calculating variances and means in judgments.
-- `json` - For handling JSON-based prompts and responses.
+Before running the project, you need to configure a few files:
 
-Make sure to add any other relevant dependencies to your `requirements.txt` file if needed.
+1. Update `prompts.py` with your specific use case.
+2. If you plan to use Hugging Face models:
+
+   - Install the Hugging Face CLI:
+     ```
+     pip install -U "huggingface_hub[cli]"
+     ```
+   - Log in to Hugging Face and generate an "allow gated models" token.
+   - Use the token to log in via the command line:
+     ```
+     huggingface-cli login
+     ```
+   - Paste the token when prompted.
+3. Update `constants.py` with your preferred model names:
+
+   - For Hugging Face: Update `MODEL_PATH`
+   - For Ollama: Update `MODEL_NAME`
 
 ## Usage
 
-1. **Import Prompts**
+You have three options for running the project:
 
-   The necessary prompts (`SYS_PROMPT`, `JUDGE_PROMPT`, `METAJUDGE_PROMPT`, `IMPROVE_PROMPT`) and model name (`MODEL_NAME`) should be provided in the `prompts.py` file.
+### 1. Using Ollama Framework
 
-   ```python
-   from prompts import SYS_PROMPT, JUDGE_PROMPT, METAJUDGE_PROMPT, IMPROVE_PROMPT, MODEL_NAME
+1. Navigate to the Ollama directory:
+
+   ```
+   cd ollama
+   ```
+2. Modify `sample.py` according to your task and parameters.
+3. Run the script:
+
+   ```
+   python sample.py
    ```
 
-2. **Create an Instance of MetaReflexion**
+### 2. Using Hugging Face Framework
 
-   Create an instance of the `MetaReflexion` class, passing in the model name and prompt configurations.
+1. Ensure you've completed the Hugging Face CLI login steps mentioned in the Configuration section.
+2. Modify `sample.py` according to your task and parameters.
+3. Run the sample script:
 
-   ```python
-   from ollama_meta_reflexion import MetaReflexion
-
-   metareflexion_instance = MetaReflexion(
-       model_name=MODEL_NAME,
-       judge_prompt=JUDGE_PROMPT,
-       sys_prompt=SYS_PROMPT,
-       metajudge_prompt=METAJUDGE_PROMPT,
-       improve_prompt=IMPROVE_PROMPT
-   )
+   ```
+   python sample.py
    ```
 
-3. **Run the Task**
+### 3. Using the Pipeline (Ollama and Hugging Face)
 
-   Define your task as a string and run the MetaReflexion instance, specifying the number of iterations and judgments for each iteration.
+To use both frameworks in a pipeline:
 
-   ```python
-   task = "Explain the importance of renewable energy."
-   output = metareflexion_instance.run(task, max_iterations=3, max_judgements=5)
-   print(output)
+1. Ensure you've updated `constants.py` and `prompts.py` as mentioned in the Configuration section.
+2. Run the meta-reflection script:
+
    ```
+   python metareflection.py
+   ```
+3. When prompted, enter 'o' for Ollama or 'h' for Hugging Face to decide which model to use.
 
-   The `run()` function will return the final refined response based on multiple rounds of self-evaluation and refinement.
+## Important Notes
 
-## File Structure
-
-- **ollama_meta_reflexion.py**: Contains the `MetaReflexion` class with all the core logic for response generation, judgment, meta-judgment, and self-refinement.
-- **prompts.py**: Holds all the prompts (`SYS_PROMPT`, `JUDGE_PROMPT`, `METAJUDGE_PROMPT`, `IMPROVE_PROMPT`) required for the system.
-- **sample.py**: A sample script that demonstrates how to use the `MetaReflexion` module with Ollama to process tasks.
-- **requirements.txt**: A file listing all the Python dependencies for this project.
-
-## Prompts Configuration
-
-You can modify the `SYS_PROMPT`, `JUDGE_PROMPT`, `METAJUDGE_PROMPT`, and `IMPROVE_PROMPT` in `prompts.py` according to your project requirements.
-
-### Example Prompt Definitions
-
-Here's a sample structure for the prompts:
-
-```python
-# prompts.py
-
-MODEL_NAME = "llama"
-
-SYS_PROMPT = "You are a helpful assistant..."
-
-JUDGE_PROMPT = "Evaluate the given response based on..."
-
-METAJUDGE_PROMPT = "Compare two judgments and select the better one..."
-
-IMPROVE_PROMPT = "Refine the response based on the best judgment..."
-```
+- Always update `prompts.py` and `constants.py` before running any scripts.
+- For Hugging Face usage, logging in via the CLI is crucial.
+- The pipeline option (metareflection.py) allows you to choose between Ollama and Hugging Face models at runtime.
+- When running metareflection.py, you will be prompted to enter 'o' for Ollama or 'h' for Hugging Face to select the model.
 
 ## Contributing
 
-Feel free to fork this repository, submit issues, or make pull requests to improve MetaReflexion or adapt it for other use cases.
+Contributions to improve this framework are welcome. Please feel free to submit issues or pull requests.
+
+## Acknowledgements
+
+This project builds upon the research presented in:
+
+- "LLM as a Meta-Judge" (https://arxiv.org/abs/2407.19594)
+- "Reflexion" (https://arxiv.org/abs/2303.11366)
