@@ -101,4 +101,4 @@ Contributions to improve this framework are welcome. Please feel free to submit 
 This project builds upon the research presented in:
 
 - "LLM as a Meta-Judge" (https://arxiv.org/abs/2407.19594)
-- "Reflexion" (https://arxiv.org/abs/2303.11366)
+- "Reflexion" (https://arxiv.org/abs/2303.11366).
