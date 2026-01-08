@@ -102,3 +102,7 @@ This project builds upon the research presented in:
 
 - "LLM as a Meta-Judge" (https://arxiv.org/abs/2407.19594)
 - "Reflexion" (https://arxiv.org/abs/2303.11366).
+
+## Our Paper Publication 
+
+https://pubs.aip.org/aip/acp/article-abstract/3378/1/030004/3376068/Meta-reflexion-A-computationally-efficient-and?redirectedFrom=fulltext
